@@ -2,6 +2,16 @@ import "./style.css";
 
 class FaceCropper {
   intrinsicImageNodeSize = { width: null, height: null };
+  imageNodeBoundingBox = {
+    bottom: null,
+    height: null,
+    left: null,
+    right: null,
+    top: null,
+    width: null,
+    x: null,
+    y: null,
+  };
   faces = [];
   faceDetector = null;
   imageContainerNode = null;
@@ -23,7 +33,7 @@ class FaceCropper {
   #drawFaceBoundingBox() {
     this.faces.forEach(({ boundingBox }) => {
       const { width: imageNodeWidth, height: imageNodeHeight } =
-        this.imageNode.getBoundingClientRect();
+        this.imageNodeBoundingBox;
 
       const { width, height, left, top } =
         this.#mapFaceDetectionBoundingBoxFromIntrinsicSize(boundingBox);
@@ -43,7 +53,7 @@ class FaceCropper {
   #setObjectCrop() {
     const boundingBox = this.#getOuterBoundingBoxFromFaces();
     const { width: imageNodeWidth, height: imageNodeHeight } =
-      this.imageNode.getBoundingClientRect();
+      this.imageNodeBoundingBox;
 
     const { top, right } =
       this.#mapFaceDetectionBoundingBoxFromIntrinsicSize(boundingBox);
@@ -63,7 +73,8 @@ class FaceCropper {
   }
 
   #mapFaceDetectionBoundingBoxFromIntrinsicSize(faceDetectionBoundingBox) {
-    const imageNodeBoundingBox = this.imageNode.getBoundingClientRect();
+    const imageNodeBoundingBox = this.imageNodeBoundingBox;
+    console.log(imageNodeBoundingBox);
 
     return {
       top:
@@ -137,6 +148,16 @@ class FaceCropper {
     });
   }
 
+  #getImageNodeBoundingBox() {
+    const imageNodeClone = this.imageNode.cloneNode();
+    imageNodeClone.setAttribute("data-is-clone", "true");
+    document.body.append(imageNodeClone);
+
+    this.imageNodeBoundingBox = this.imageNode.getBoundingClientRect();
+
+    imageNodeClone.parentElement.removeChild(imageNodeClone);
+  }
+
   #showNotSupportedOverlay() {
     document.body.setAttribute("data-is-supported", "false");
   }
@@ -153,6 +174,7 @@ class FaceCropper {
         this.options;
 
       await this.#getIntrinsicImageNodeSize();
+      this.#getImageNodeBoundingBox();
       await this.#getFaces();
       drawFaceBoundingBox && this.#drawFaceBoundingBox();
       (setObjectPosition || setObjectFit) && this.#setObjectCrop();

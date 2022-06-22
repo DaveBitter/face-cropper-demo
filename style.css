@@ -33,6 +33,15 @@ body {
 img {
   max-width: 100%;
   border-radius: 0.5rem;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+img[data-is-clone] {
+  max-width: unset;
+  position: absolute;
+  aspect-ratio: unset;
+  object-fit: unset;
 }
 
 .not-supported-banner {
