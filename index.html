@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaceDetector</title>
+  </head>
+  <body>
+    <h1>Singular face</h1>
+    <div class="wrapper">
+      <div>
+        <h2>Standard image</h2>
+        <div class="image-container" data-image-container>
+          <img src="/static/img/face.jpg" data-image />
+        </div>
+      </div>
+      <div>
+        <h2>The problem with object fit</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/face.jpg"
+            data-image
+            data-set-object-fit="true"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Get face bounding box</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/face.jpg"
+            data-image
+            data-draw-face-bounding-box="true"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Set object position based on face bounding box</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/face.jpg"
+            data-image
+            data-set-object-fit="true"
+            data-set-object-position="true"
+          />
+        </div>
+      </div>
+    </div>
+    <h1>Multiple faces</h1>
+    <div class="wrapper">
+      <div>
+        <h2>Standard image</h2>
+        <div class="image-container" data-image-container>
+          <img src="/static/img/faces.jpg" data-image />
+        </div>
+      </div>
+      <div>
+        <h2>The problem with object fit</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/faces.jpg"
+            data-image
+            data-set-object-fit="true"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Get face bounding box</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/faces.jpg"
+            data-image
+            data-draw-face-bounding-box="true"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>Set object position based on faces grouped bounding box</h2>
+        <div class="image-container" data-image-container>
+          <img
+            src="/static/img/faces.jpg"
+            data-image
+            data-set-object-fit="true"
+            data-set-object-position="true"
+          />
+        </div>
+      </div>
+    </div>
+    <h1 class="not-supported-banner">
+      You're browser currently does not support the FaceDetector API which is
+      required for this demo. <br />
+      <br />
+      In Chrome under chrome://flags, turn on
+      #enable-experimental-web-platform-features to view this demo.
+    </h1>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
